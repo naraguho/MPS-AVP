@@ -20,10 +20,10 @@ Both examples are single Julia files. They load the Quench_dyn primitives from t
 
 We use an open spin-½ chain with (J=1):
 
-\[
+$$
 H_{\rm XXZ}=\sum_{i=1}^{N-1}
 \left(S_i^xS_{i+1}^x+S_i^yS_{i+1}^y+\Delta S_i^zS_{i+1}^z\right),
 \qquad N=100,\quad\Delta=3.
-\]
+$$
 
 The examples set all longitudinal fields to zero, including during preparation of the Néel background. A product Néel seed chooses one broken-symmetry branch. Local optimization around the defects then lowers the zero-field XXZ energy within a restricted MPS family.
