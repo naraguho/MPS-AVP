@@ -24,13 +24,19 @@ We use an open spin-½ chain with $J=1$:
 
 ```math
 H_{\mathrm{XXZ}}
-= \sum_{i=1}^{N-1}
-\left(
-S_i^x S_{i+1}^x
-+ S_i^y S_{i+1}^y
-+ \Delta S_i^z S_{i+1}^z
-\right),
-\qquad N=100, \qquad \Delta=3.
+=
+\sum_{i=1}^{N-1}
+\Bigl[
+S_i^{x}\,S_{i+1}^{x}
+\; + \;
+S_i^{y}\,S_{i+1}^{y}
+\; + \;
+\Delta\,S_i^{z}\,S_{i+1}^{z}
+\Bigr],
+\qquad
+N=100,
+\qquad
+\Delta=3.
 ```
 
 The examples set all longitudinal fields to zero, including during preparation of the Néel background. A product Néel seed chooses one broken-symmetry branch. Local optimization around the defects then lowers the zero-field XXZ energy within a restricted MPS family.
