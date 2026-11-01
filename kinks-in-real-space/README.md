@@ -57,4 +57,18 @@ The following values were obtained with the default \(N=100\), \(\Delta=3\), zer
 
 For comparison, the dressed zero-field Néel background used by both preparations had \(E_{\mathrm{XXZ}}\approx-82.4283032737\). The higher kink energies are expected because the corresponding \(A|B\) and \(A|B|A\) backgrounds are deliberately retained.
 
+### Reference profiles
+
+The corresponding final profiles are stored in [`figures/`](figures/). Dashed lines mark the final detected wall positions; the shaded region in the one-kink figure is the optimized core.
+
+![Converged one-kink profile](figures/one_kink_reference.png)
+
+![Converged two-kink profile](figures/two_kinks_reference.png)
+
+To regenerate these images after reproducing the reference output folders, run:
+
+~~~bash
+gnuplot kinks-in-real-space/render_reference_profiles.gp
+~~~
+
 These are zero-field localized **restricted variational states**. Neither is claimed to be the unrestricted ground state or an exact excited eigenstate. The domain backgrounds let us test defect-core relaxation without immediately optimizing away the surroundings. Later AVP evolution needs separate tests for moving blocks, updating backgrounds, and fidelity of the resulting dynamics.
