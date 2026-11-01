@@ -1,6 +1,8 @@
 # MPS-AVP
 
-This repository builds on the MPS, DMRG, and TDVP directory developed by [Nishan Ranabhat](https://github.com/NishanRanabhat/Quench_dyn). It retains the history and source of [Quench_dyn](https://github.com/naraguho/Quench_dyn); its original README is preserved in [QuenchDyn_README.md](QuenchDyn_README.md). The new work here explores the adiabatic variational principle (AVP) as a route to **real-time dissipative dynamics of kinks** in the easy-axis XXZ chain.
+**Citation:** if you use this work, please cite [arXiv:2610.40117](https://arxiv.org/abs/2610.40117).
+
+This repository builds on the MPS, DMRG, and TDVP directory developed by [Nishan Ranabhat](https://github.com/NishanRanabhat/Quench_dyn). The accompanying paper is [arXiv:2610.40117](https://arxiv.org/abs/2610.40117). It retains the history and source of [Quench_dyn](https://github.com/naraguho/Quench_dyn); its original README is preserved in [QuenchDyn_README.md](QuenchDyn_README.md). The new work here explores the adiabatic variational principle (AVP) as a route to **real-time dissipative dynamics of kinks** in the easy-axis XXZ chain.
 
 The first examples address state preparation: localized one- and two-kink MPS states in real space at zero longitudinal field. They are constrained variational trials. AVP time integration and dissipative dynamics are research goals, not results claimed by these static examples.
 
@@ -21,9 +23,9 @@ Both examples are single Julia files. They load the Quench_dyn primitives from t
 We use an open spin-½ chain with (J=1):
 
 $$
-H_{\rm XXZ}=\sum_{i=1}^{N-1}
-\left(S_i^xS_{i+1}^x+S_i^yS_{i+1}^y+\Delta S_i^zS_{i+1}^z\right),
-\qquad N=100,\quad\Delta=3.
+H_{\mathrm{XXZ}} = \sum_{i=1}^{N-1}
+\left( S^{x}_{i} S^{x}_{i+1} + S^{y}_{i} S^{y}_{i+1} + \Delta\, S^{z}_{i} S^{z}_{i+1} \right),
+\qquad N = 100, \quad \Delta = 3.
 $$
 
 The examples set all longitudinal fields to zero, including during preparation of the Néel background. A product Néel seed chooses one broken-symmetry branch. Local optimization around the defects then lowers the zero-field XXZ energy within a restricted MPS family.
