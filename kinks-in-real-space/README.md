@@ -46,4 +46,15 @@ Among eligible roots the code accepts the one with the lowest *lower* full-chain
 
 Defaults are `kinks-in-real-space/outputs/one-kink/` and `kinks-in-real-space/outputs/two-kinks/`. Each contains `profiles.csv` (every round), `round_summary.csv`, serialized `.jls` MPS, and optional final-profile PNG. Existing nonempty output directories are preserved. Set `KINK_OUTPUT` or `TWO_KINK_OUTPUT` to a fresh directory to rerun.
 
+### Reference convergence runs
+
+The following values were obtained with the default \(N=100\), \(\Delta=3\), zero-field scripts. They are useful checks that a local run reproduces the current implementation; they are **not** unrestricted XXZ ground-state energies.
+
+| preparation | final restricted energy | final \(\Delta E\) | stopping condition |
+| --- | ---: | ---: | --- |
+| one kink | \(-81.797872782920\) | \(-2.4\times10^{-13}\), round 20 | three consecutive rounds with \(\lvert\Delta E\rvert<10^{-10}\) and \(\max_i\lvert\Delta\langle S_i^z\rangle\rvert<10^{-8}\) |
+| two kinks | \(-81.131152787751\) | \(-1.8\times10^{-9}\), round 7 | two consecutive rounds with \(\lvert\Delta E\rvert<10^{-7}\) and \(\max_i\lvert\Delta\langle S_i^z\rangle\rvert<10^{-4}\) |
+
+For comparison, the dressed zero-field Néel background used by both preparations had \(E_{\mathrm{XXZ}}\approx-82.4283032737\). The higher kink energies are expected because the corresponding \(A|B\) and \(A|B|A\) backgrounds are deliberately retained.
+
 These are zero-field localized **restricted variational states**. Neither is claimed to be the unrestricted ground state or an exact excited eigenstate. The domain backgrounds let us test defect-core relaxation without immediately optimizing away the surroundings. Later AVP evolution needs separate tests for moving blocks, updating backgrounds, and fidelity of the resulting dynamics.
