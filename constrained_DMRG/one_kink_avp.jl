@@ -54,6 +54,23 @@ function save_checkpoint(path, state, stage, target, lambda, measured, accepted)
                      tensors=deepcopy(state.mps.tensors)))
 end
 
+function save_t0_exports(output, state, target, lambda, measured, accepted)
+    checkpoint = joinpath(output, "t0_mps.jls")
+    save_checkpoint(checkpoint, state, 0, target, lambda, measured, accepted)
+    open(joinpath(output, "t0_profile.csv"), "w") do io
+        println(io, "site,target_Sz,measured_Sz,lambda")
+        for i in eachindex(target)
+            println(io, join((i, target[i], measured[i], lambda[i]), ','))
+        end
+    end
+    open(joinpath(output, "t0_lambda.csv"), "w") do io
+        println(io, "site,lambda")
+        for i in eachindex(lambda)
+            println(io, join((i, lambda[i]), ','))
+        end
+    end
+end
+
 function main()
     p = settings()
     p.N >= 4 && p.chi >= 1 && 0 < p.amplitude < 0.5 || error("Invalid N, chi, or amplitude")
@@ -138,6 +155,9 @@ function main()
                     flush(stages)
                     save_checkpoint(joinpath(p.output, @sprintf("stage_%04d.jls", stage)),
                         state, stage, target, lambda, measured, accepted)
+                    if stage == 0
+                        save_t0_exports(p.output, state, target, lambda, measured, accepted)
+                    end
                     accepted || @warn "Stage did not meet the convergence criterion; next target uses this approximate state" stage maxg dlambda
                     stage == p.stages && break
 

@@ -36,3 +36,30 @@ By default results go to `constrained_DMRG/output/N100_Delta3_one_kink/`:
 The program refuses to overwrite a nonempty output directory. Set `AVP_OUTPUT` to a new path for another run. The main parameters can also be overridden through `AVP_N`, `AVP_CHI`, `AVP_STAGES`, `AVP_MAX_SWEEPS`, `AVP_LOCAL_TOL`, `AVP_GLOBAL_TOL`, `AVP_ALPHA`, `AVP_DT`, and `AVP_GAMMA`.
 
 This is the unrestricted one-kink target flow: the DMRG solver has no frozen background or explicit defect constraint. It can relax from the localized kink branch toward another XXZ branch as λ changes. The sweep and profile files make that behavior inspectable.
+
+## Reference t=0 kink profile and loadable checkpoint
+
+The figure below is from the actual N=100, Δ=3, χ=64 run that accompanies this example. It shows the accepted stage-0 target and measured local polarization together with the λ field from that same checkpoint. Stage 0 was accepted after 45 complete right/left sweep pairs (max local residual `9.9994e-3`). This is the DMRG-relaxed t=0 state, not the raw biased random seed. The vertical line marks the central bond 50|51.
+
+![Accepted t=0 one-kink polarization and multiplier profiles](reference/one_kink_t0_profile.png)
+
+The matching files are bundled in [`reference/`](reference/):
+
+- [`one_kink_t0_mps.jls`](reference/one_kink_t0_mps.jls): serialized checkpoint containing the MPS tensors, target profile, measured profile, λ vector, stage, and acceptance flag.
+- [`one_kink_t0_profile.csv`](reference/one_kink_t0_profile.csv): one row per site with target, measured polarization, and λ.
+- [`one_kink_t0_lambda.csv`](reference/one_kink_t0_lambda.csv): minimal site/λ table for direct reuse as a field.
+- [`load_t0_checkpoint.jl`](reference/load_t0_checkpoint.jl): convenience loader for recovering the `MPS` object and checkpoint fields.
+- [`plot_t0_profile.gp`](reference/plot_t0_profile.gp): reproduces the PNG from the CSV with gnuplot.
+
+From the repository root, load the checkpoint in Julia with:
+
+~~~julia
+include("constrained_DMRG/reference/load_t0_checkpoint.jl")
+data = load_t0_checkpoint()
+psi = data.mps
+lambda = data.lambda
+target = data.target
+measured = data.measured
+~~~
+
+The driver now also writes `t0_mps.jls`, `t0_profile.csv`, and `t0_lambda.csv` into each run's output directory immediately after stage 0. `t0_lambda.csv` is a minimal site/λ export for scripts that only need the field. To regenerate the reference image, run `gnuplot plot_t0_profile.gp` from `constrained_DMRG/reference/`. Check `accepted` in the checkpoint (and `stages.csv`) before treating an automatically generated t=0 state as converged.
