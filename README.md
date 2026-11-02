@@ -4,11 +4,13 @@ This repository builds on the MPS, DMRG, and TDVP directory developed by [Nishan
 
 > Yang Yang, Ali Rayat, Ho Jang, Yunhao Fan, Sankha Subhra Bakshi, and Gia-Wei Chern, **“Adiabatic Variational Principle: Born-Oppenheimer Theory for Emergent Electronic-Order Dynamics,”** [arXiv:2610.40117](https://arxiv.org/abs/2610.40117) (2026).
 
-The first examples address state preparation: localized one- and two-kink MPS states in real space at zero longitudinal field. They are constrained variational trials. AVP time integration and dissipative dynamics are research goals, not results claimed by these static examples.
+The real-space examples prepare localized one- and two-kink MPS states at zero longitudinal field. A separate constrained-DMRG example records an exploratory AVP target evolution, including stages where the kink profile may disappear. These codes document numerical procedures; they do not establish validated dissipative kink dynamics.
 
 ## Real-space kink examples
 
 See [kinks-in-real-space/README.md](kinks-in-real-space/README.md) for the physical construction, the exact optimization steps, convergence checks, limitations, and output files.
+
+The [constrained DMRG one-kink pipeline](constrained_DMRG/README.md) contains the local Lagrange-multiplier solver and target evolution used to study how an unrestricted kink can lose its profile as the field changes.
 
 ```bash
 julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate()'
